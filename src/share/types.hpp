@@ -129,6 +129,7 @@ enum class key_code : uint32_t {
   apple_display_brightness_increment,
   apple_top_case_display_brightness_decrement,
   apple_top_case_display_brightness_increment,
+  vk_hyper_modifier,
 };
 
 enum class pointing_button : uint32_t {
@@ -194,6 +195,7 @@ enum class modifier_flag : uint32_t {
   right_option,
   right_command,
   fn,
+  hyper,
   prepared_modifier_flag_end_
 };
 
@@ -265,6 +267,8 @@ public:
       return modifier_flag::right_command;
     case static_cast<uint32_t>(key_code::fn):
       return modifier_flag::fn;
+    case static_cast<uint32_t>(key_code::vk_hyper_modifier):
+      return modifier_flag::hyper;
     default:
       return modifier_flag::zero;
     }
@@ -486,6 +490,7 @@ public:
         {"vk_consumer_next", key_code::fastforward},
         {"volume_down", key_code(kHIDUsage_KeyboardVolumeDown)},
         {"volume_up", key_code(kHIDUsage_KeyboardVolumeUp)},
+        {"hyper", key_code::vk_hyper_modifier}, // equals to ctrl + option + cmd + shift
     });
     return map;
   }
