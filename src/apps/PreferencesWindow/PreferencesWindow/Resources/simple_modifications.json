@@ -765,5 +765,9 @@
     {
         "name": "volume_up",
         "label": "volume_up (equal to `volume_increment`)"
+    },
+    {
+    "name": "hyper",
+    "label": "hyper (equal to `control` + `option` + `command` + `shift`)"
     }
 ]
