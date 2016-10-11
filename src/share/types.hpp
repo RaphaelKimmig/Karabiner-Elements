@@ -111,6 +111,11 @@ enum class key_code : uint32_t {
   extra_ = 0x1000,
   // A pseudo key that does not send any event.
   vk_none,
+  vk_hyper_modifier,
+  vk_hyper_minus_cmd_modifier,
+  vk_hyper_minus_opt_modifier,
+  vk_hyper_minus_shift_modifier,
+  vk_hyper_minus_ctrl_modifier,
 
   // Keys that are not in generic keyboard_or_keypad usage_page.
   fn,
@@ -129,7 +134,6 @@ enum class key_code : uint32_t {
   apple_display_brightness_increment,
   apple_top_case_display_brightness_decrement,
   apple_top_case_display_brightness_increment,
-  vk_hyper_modifier,
 };
 
 enum class pointing_button : uint32_t {
@@ -195,7 +199,13 @@ enum class modifier_flag : uint32_t {
   right_option,
   right_command,
   fn,
-  hyper,
+
+  hyper, // cmd + opt + ctrl + shift
+  hyper_minus_cmd, // opt + ctrl + shift
+  hyper_minus_opt, // cmd + ctrl + shift
+  hyper_minus_shift, // cmd + opt + ctrl
+  hyper_minus_ctrl, // cmd + opt + shift
+
   prepared_modifier_flag_end_
 };
 
@@ -269,6 +279,14 @@ public:
       return modifier_flag::fn;
     case static_cast<uint32_t>(key_code::vk_hyper_modifier):
       return modifier_flag::hyper;
+    case static_cast<uint32_t>(key_code::vk_hyper_minus_cmd_modifier):
+      return modifier_flag::hyper_minus_cmd;
+    case static_cast<uint32_t>(key_code::vk_hyper_minus_opt_modifier):
+      return modifier_flag::hyper_minus_opt;
+    case static_cast<uint32_t>(key_code::vk_hyper_minus_shift_modifier):
+      return modifier_flag::hyper_minus_shift;
+    case static_cast<uint32_t>(key_code::vk_hyper_minus_ctrl_modifier):
+      return modifier_flag::hyper_minus_ctrl;
     default:
       return modifier_flag::zero;
     }
@@ -491,6 +509,10 @@ public:
         {"volume_down", key_code(kHIDUsage_KeyboardVolumeDown)},
         {"volume_up", key_code(kHIDUsage_KeyboardVolumeUp)},
         {"hyper", key_code::vk_hyper_modifier}, // equals to ctrl + option + cmd + shift
+        {"hyper_minus_cmd", key_code::vk_hyper_minus_cmd_modifier}, // equals to ctrl + option + shift
+        {"hyper_minus_opt", key_code::vk_hyper_minus_opt_modifier}, // equals to ctrl + cmd + shift
+        {"hyper_minus_shift", key_code::vk_hyper_minus_shift_modifier}, // equals to ctrl + option + cmd
+        {"hyper_minus_ctrl", key_code::vk_hyper_minus_ctrl_modifier}, // equals to option + cmd + shift
     });
     return map;
   }
